@@ -27,6 +27,7 @@ import java.util.Map;
  * @author lvsq
  */
 public class Ack2Message implements Serializable {
+    
     @JsonSerialize(keyUsing = CustomSerializer.class)
     @JsonDeserialize(keyUsing = CustomDeserializer.class)
     private Map<GossipMember, HeartbeatState> endpoints;

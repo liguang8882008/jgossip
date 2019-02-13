@@ -23,5 +23,7 @@ import net.lvsq.jgossip.model.GossipState;
  * @author lvsq
  */
 public interface GossipListener {
+    
     void gossipEvent(GossipMember member, GossipState state);
+    
 }

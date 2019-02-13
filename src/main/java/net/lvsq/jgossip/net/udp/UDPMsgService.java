@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,14 +49,15 @@ public class UDPMsgService implements MsgService {
     }
 
     @Override
-    public void handleMsg(Buffer data) {
-        JsonObject j = data.toJsonObject();
+    public void handleMsg(Buffer bufferData) {
+        JsonObject j = bufferData.toJsonObject();
         String msgType = j.getString(GossipMessageFactory.KEY_MSG_TYPE);
-        String _data = j.getString(GossipMessageFactory.KEY_DATA);
+        String data = j.getString(GossipMessageFactory.KEY_DATA);
         String cluster = j.getString(GossipMessageFactory.KEY_CLUSTER);
         String from = j.getString(GossipMessageFactory.KEY_FROM);
-        if (StringUtil.isNullOrEmpty(cluster) || !GossipManager.getInstance().getCluster().equals(cluster)) {
-            LOGGER.error("This message shouldn't exist my world!" + data.toString());
+        if (StringUtil.isNullOrEmpty(cluster)
+                || !GossipManager.getInstance().getCluster().equals(cluster)) {
+            LOGGER.error("This message shouldn't exist my world!" + bufferData.toString());
             return;
         }
         MessageHandler handler = null;
@@ -73,15 +74,14 @@ public class UDPMsgService implements MsgService {
             LOGGER.error("Not supported message type");
         }
         if (handler != null) {
-            handler.handle(cluster, _data, from);
+            handler.handle(cluster, data, from);
         }
     }
 
     @Override
     public void sendMsg(String targetIp, Integer targetPort, Buffer data) {
         if (targetIp != null && targetPort != null && data != null) {
-            socket.send(data, targetPort, targetIp, asyncResult -> {
-            });
+            socket.send(data, targetPort, targetIp, asyncResult -> {});
         }
     }
 
@@ -92,7 +92,8 @@ public class UDPMsgService implements MsgService {
                 if (asyncResult.succeeded()) {
                     LOGGER.info("Socket was close!");
                 } else {
-                    LOGGER.error("Close socket an error has occurred. " + asyncResult.cause().getMessage());
+                    LOGGER.error("Close socket an error has occurred. "
+                            + asyncResult.cause().getMessage());
                 }
             });
         }

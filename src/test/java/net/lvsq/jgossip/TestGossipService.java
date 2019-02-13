@@ -22,17 +22,22 @@ public class TestGossipService {
         seed.setPort(port);
         seedNodes.add(seed);
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 50; i++) {
             GossipService gossipService = null;
             try {
-                gossipService = new GossipService(cluster, ipAddress, port + i, null, seedNodes, new GossipSettings(), (member, state) -> {
-                    System.out.println("member:" + member + "  state: " + state);
-                });
+                gossipService =
+                        new GossipService(cluster, ipAddress, port + i, null, seedNodes,
+                                new GossipSettings(), (member, state) -> {
+                                    System.out.println("member:" + member + "  state: " + state);
+                                });
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             gossipService.start();
         }
+
+        Thread.sleep(1000000);
+
     }
 }

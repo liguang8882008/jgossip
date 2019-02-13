@@ -19,16 +19,6 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
-import net.lvsq.jgossip.event.GossipListener;
-import net.lvsq.jgossip.model.Ack2Message;
-import net.lvsq.jgossip.model.AckMessage;
-import net.lvsq.jgossip.model.CandidateMemberState;
-import net.lvsq.jgossip.model.GossipDigest;
-import net.lvsq.jgossip.model.GossipMember;
-import net.lvsq.jgossip.model.GossipState;
-import net.lvsq.jgossip.model.HeartbeatState;
-import net.lvsq.jgossip.model.MessageType;
-import net.lvsq.jgossip.model.SeedMember;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -43,10 +33,22 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import net.lvsq.jgossip.event.GossipListener;
+import net.lvsq.jgossip.model.Ack2Message;
+import net.lvsq.jgossip.model.AckMessage;
+import net.lvsq.jgossip.model.CandidateMemberState;
+import net.lvsq.jgossip.model.GossipDigest;
+import net.lvsq.jgossip.model.GossipMember;
+import net.lvsq.jgossip.model.GossipState;
+import net.lvsq.jgossip.model.HeartbeatState;
+import net.lvsq.jgossip.model.MessageType;
+import net.lvsq.jgossip.model.SeedMember;
+
 /**
  * @author lvsq
  */
 public class GossipManager {
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(GossipManager.class);
     private static GossipManager instance = new GossipManager();
     private long executeGossipTime = 500;

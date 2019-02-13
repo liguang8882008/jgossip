@@ -26,6 +26,7 @@ import java.util.List;
  * @author lvsq
  */
 public class GossipService {
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(GossipService.class);
 
     public GossipService(String cluster, String ipAddress, Integer port, String id, List<SeedMember> seedMembers, GossipSettings settings, GossipListener listener) throws Exception {
